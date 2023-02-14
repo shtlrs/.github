@@ -15,6 +15,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
+  varss:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ vars.GHA_WEBOOK_ID }}
+
   status_embed:
     if: >-
       github.event_name == 'pull_request' ||
@@ -32,7 +38,7 @@ jobs:
         uses: SebastiaanZ/github-status-embed-for-discord@v0.3.0
         with:
           # Our GitHub Actions webhook
-          webhook_id: '${{ vars.GHA_WEBOOK_ID }}'
+          webhook_id: ${{ vars.GHA_WEBOOK_ID }}
           webhook_token: ${{ secrets.GHA_WEBHOOK_TOKEN }}
 
           # Workflow information
