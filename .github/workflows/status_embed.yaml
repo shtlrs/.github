@@ -16,7 +16,7 @@ jobs:
   varss:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ vars.GHA_WEBHOOK_ID }}
+      - run: echo ${{ env.GHA_WEBHOOK_ID }}
 
   status_embed:
     if: >-
@@ -35,7 +35,7 @@ jobs:
         uses: SebastiaanZ/github-status-embed-for-discord@v0.3.0
         with:
           # Our GitHub Actions webhook
-          webhook_id: '1073334907755053056'
+          webhook_id: '${{ env.GHA_WEBHOOK_ID }}'
           webhook_token: ${{ secrets.GHA_WEBHOOK_TOKEN }}
 
           # Workflow information
