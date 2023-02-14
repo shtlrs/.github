@@ -1,0 +1,43 @@
+name: Status Embed
+
+on:
+  workflow_call:
+    inputs:
+      job_status:
+        required: true
+        type: string
+    secrets:
+      webhook_token:
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  status_embed:
+    if: >-
+      github.event_name == 'pull_request' ||
+      ${{ inputs.job_status }} == 'failure' ||
+      ${{ inputs.job_status }} == 'cancelled'
+    name:  Send Status Embed to Discord
+    runs-on: ubuntu-latest
+
+    steps:
+      # Send an informational status embed to Discord instead of the
+      # standard embeds that Discord sends. This embed will contain
+      # more information and we can fine tune when we actually want
+      # to send an embed.
+      - name: GitHub Actions Status Embed for Discord
+        uses: SebastiaanZ/github-status-embed-for-discord@v0.3.0
+        with:
+          # Our GitHub Actions webhook
+          webhook_id: '${{ vars.WEBOOK_ID }}'
+          webhook_token: ${{ secrets.GHA_WEBHOOK_TOKEN }}
+
+          # Workflow information
+          status: ${{ inputs.job_status }}
+          pr_author_login: ${{ github.event.pull_request.user.login}}
+          pr_number: ${{ github.event.pull_request.number }}
+          pr_title: ${{ github.event.pull_request.title }}
+          pr_source: ${{ github.event.pull_request.head.label }}
