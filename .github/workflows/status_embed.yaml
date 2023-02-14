@@ -16,7 +16,7 @@ jobs:
   varss:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ vars.GHA_WEBOOK_ID }}
+      - run: echo ${{ vars.GHA_WEBHOOK_ID }}
 
   status_embed:
     if: >-
