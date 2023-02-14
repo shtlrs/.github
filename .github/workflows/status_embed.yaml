@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ env.GHA_WEBHOOK_ID }}
+      - run: echo ${{ toJSON(env) }}
+      - run: echo ${{ toJSON(vars) }}
+      - run: echo ${{ toJSON(secrets) }}
 
   status_embed:
     if: >-
