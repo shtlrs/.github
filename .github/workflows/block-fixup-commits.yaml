@@ -21,8 +21,10 @@ jobs:
       id: search-for-fixup-prefix
       run: |
         commit_messages=$(git log origin/${{ github.event.pull_request.base.ref }}..$GITHUB_HEAD_REF --format=%B)
-
-        if echo "$commit_messages" | grep -q "^fixup"; then
-          echo "Please make sure to squash all commits that have the 'fixup' prefix in your commit messages."
+        fixup_commits=$(echo "$commit_messages" | grep "^fixup")
+        if [ -n "$fixup_commits" ]; then
+          echo "Please make sure that all commits that have the 'fixup' prefix need to be squashed before merging.""
+          echo "Commits with 'fixup' prefix:"
+          echo "$fixup_commits"
           exit 1
         fi
