@@ -24,7 +24,7 @@ jobs:
         fixup_commits=$(echo "$commit_messages" | grep "^fixup")
         if [ -n "$fixup_commits" ]; then
           echo "Please make sure that all commits that have the 'fixup' prefix need to be squashed before merging.""
-          echo "Commits with 'fixup' prefix:"
+          echo "Commits that have the fixup prefix:"
           echo "$fixup_commits"
           exit 1
         fi
