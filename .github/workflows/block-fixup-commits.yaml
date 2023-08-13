@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout base repo
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.base.ref }}
 
     - name: Checkout to the pull request's branch
       run: gh pr checkout ${{ github.event.pull_request.number }}
