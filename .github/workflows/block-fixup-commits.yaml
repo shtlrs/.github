@@ -13,6 +13,8 @@ jobs:
 
     - name: Checkout to the pull request's branch
       run: gh pr checkout ${{ github.event.pull_request.number }}
+      env:
+        GH_TOKEN: ${{ github.token }}
 
     - name: Look for the fixup prefix
       id: search-for-fixup-prefix
