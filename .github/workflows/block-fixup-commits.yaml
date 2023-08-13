@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Echo repo
+      run: echo ${{ github.repository }}
+
     - name: Checkout code
       uses: actions/checkout@v3
       with:
