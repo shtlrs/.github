@@ -17,9 +17,6 @@ jobs:
     - name: Add fork as remote
       run: git remote add fork ${{ github.event.pull_request.head.repo.clone_url  }}
 
-    - name: Echo logs
-      run: git log fork ${{ github.event.pull_request.head.ref }}
-
     - name: Echo remotes
       run: git remote -v
 
