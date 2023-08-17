@@ -8,19 +8,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout base repo
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.pull_request.base.ref }}
-    - name: Echo remote
-      run: git remote -v
-    - name: Checkout to the pull request's branch
-      run: gh pr checkout ${{ github.event.pull_request.number }}
-      env:
-        GH_TOKEN: ${{ github.token }}
+    - name: Checkout our main branch
+      uses:  actions/checkout@v3
     
-    - name: Echo remote
+    - name: Echo remotes:
+      run: git remote -v 
+
+    - name: Add fork as remote
+      run: git remote add fork ${{ github.event.pull_request.head.repo.clone_url  }}
+
+    - name: Echo remotes
       run: git remote -v
+
+    - name: Fetch the pull request's branch
+      run: git fetch fork ${{ github.event.pull_request.head.ref }} --depth=${{ github.event.pull_request.commits }} + 1
+
     - name: Look for the fixup prefix
       id: search-for-fixup-prefix
       run: |
