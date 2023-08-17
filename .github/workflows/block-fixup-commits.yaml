@@ -11,7 +11,7 @@ jobs:
     - name: Checkout our main branch
       uses:  actions/checkout@v3
     
-    - name: Echo remotes:
+    - name: Echo remotes
       run: git remote -v 
 
     - name: Add fork as remote
