@@ -21,7 +21,7 @@ jobs:
       run: git remote -v
 
     - name: Fetch the pull request's branch
-      run: git fetch fork ${{ github.event.pull_request.head.ref }} --depth=${{ github.event.pull_request.commits }}+1 
+      run: git fetch fork ${{ github.event.pull_request.head.ref }} --depth=(${{ github.event.pull_request.commits }} + 1 )
 
     - name: Look for the fixup prefix
       id: search-for-fixup-prefix
