@@ -28,11 +28,6 @@ jobs:
 
     - name: Fetch the pull request's branch
       run: git fetch fork ${{ github.event.pull_request.head.ref }} --depth=$((${{ github.event.pull_request.commits }} + 1 ))
-    - name: echo rainbow
-      run: |
-        for (( i = 30; i < 38; i++ )); do
-          echo -e "\033[0;"$i"m Normal: (0;$i); \033[1;"$i"m Light: (1;$i)"; 
-        done
 
     - name: Look for the fixup prefix
       id: search-for-fixup-prefix
@@ -40,8 +35,8 @@ jobs:
         commit_messages=$(git log origin/${{ github.event.pull_request.base.ref }}..fork/${{ github.event.pull_request.head.ref }} --format=%B)
         fixup_commits=$(echo "$commit_messages" | grep "^fixup" || true)
         if [ -n "$fixup_commits" ]; then
-            echo -e "Error:  \033[0;31mPlease make sure that all commits that have the 'fixup' prefix need to be squashed before merging."
-            echo -e "$RED Commits $NO_COLOUR  that $RED need fixing"
+            echo -e "$RED Error: Please make sure that all commits that have the 'fixup' prefix need to be squashed before merging."
+            echo -e "$RED Commits that need fixing"
             echo -e "$YELLOW $fixup_commits"
             exit 1
         fi
