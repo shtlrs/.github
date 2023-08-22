@@ -28,7 +28,12 @@ jobs:
 
     - name: Fetch the pull request's branch
       run: git fetch fork ${{ github.event.pull_request.head.ref }} --depth=$((${{ github.event.pull_request.commits }} + 1 ))
-
+    - name: echo rainbow
+      run: |
+        for (( i = 30; i < 38; i++ )); do
+          echo -e "\033[0;"$i"m Normal: (0;$i); \033[1;"$i"m Light: (1;$i)"; 
+        done
+        
     - name: Look for the fixup prefix
       id: search-for-fixup-prefix
       run: |
@@ -40,8 +45,4 @@ jobs:
             echo "$YELLOW $fixup_commits"
             exit 1
         fi
-    - name: echo rainbow
-      run: |
-        for (( i = 30; i < 38; i++ )); do
-          echo -e "\033[0;"$i"m Normal: (0;$i); \033[1;"$i"m Light: (1;$i)"; 
-        done
+    
