@@ -36,7 +36,7 @@ jobs:
         if [ -n "commit_messages" ]; then
             echo -e "$RED Error: Please make sure that all commits that have the 'fixup' prefix need to be squashed before merging."
             echo -e "$RED Commits that need fixing:"
-            echo -e "$YELLOW $fixup_commits"
+            echo -e "$YELLOW $commit_messages"
             exit 1
         fi
     
