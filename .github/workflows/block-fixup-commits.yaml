@@ -40,3 +40,8 @@ jobs:
             echo "$YELLOW $fixup_commits"
             exit 1
         fi
+    - name: echo rainbow
+      run |
+        for (( i = 30; i < 38; i++ )); do
+          echo -e "\033[0;"$i"m Normal: (0;$i); \033[1;"$i"m Light: (1;$i)"; 
+        done
