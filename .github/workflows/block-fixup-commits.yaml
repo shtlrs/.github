@@ -34,6 +34,7 @@ jobs:
       run: |
         commit_messages=$(git log origin/${{ github.event.pull_request.base.ref }}..fork/${{ github.event.pull_request.head.ref }} --format="%h %B" --grep "^prefix")
         if [ -n "commit_messages" ]; then
+            echo $commit_messages
             echo -e "$RED Error: Please make sure that all commits that have the 'fixup' prefix need to be squashed before merging."
             echo -e "$RED Commits that need fixing:"
             echo -e "$YELLOW $commit_messages"
