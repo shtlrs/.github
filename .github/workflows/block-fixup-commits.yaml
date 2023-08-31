@@ -26,7 +26,7 @@ jobs:
       id: search-for-fixup-prefix
       run: |
         commit_messages=$(git log origin/${{ github.event.pull_request.base.ref }}..fork/${{ github.event.pull_request.head.ref }} --format="%h %B" --grep "^fixup" --oneline)
-        if [ -n "commit_messages" ]; then
+        if [ -n "$commit_messages" ]; then
             echo -e "$RED Error: Make sure that all 'fixup' prefixed commits are squashed before merging."
             echo -e "$RED Commits that need fixing:"
             while IFS= read -r line; do
